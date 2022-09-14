@@ -51,6 +51,8 @@ public class ArchiveServiceImpl implements ArchiveService {
         return null;
     }
 
+    // Assalomu Aleykum. Qandaysz
+    
     @Override
     public ResponseEntity<?> getByBookId(Long id){
         try {
