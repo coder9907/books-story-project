@@ -10,6 +10,8 @@ public interface CommentService {
 
     ResponseEntity<?> getByIdComment(Long commentId);
 
+    ResponseEntity<?> getAllComment();
+
     ResponseEntity<?> findByBookId(Long bookId);
 
     ResponseEntity<?> findByUserId(Long userId);

@@ -13,4 +13,10 @@ public class FavoritePayload {
     private Long userId;
     private Long bookId;
 
+    public FavoritePayload(Long id, Long userId) {
+        this.id = id;
+        this.userId = userId;
+    }
+
+
 }

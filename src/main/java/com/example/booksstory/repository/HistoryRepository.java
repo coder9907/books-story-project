@@ -12,8 +12,10 @@ import java.util.List;
 public interface HistoryRepository extends JpaRepository<History, Long> {
 
     @Query("select new com.example.booksstory.payload.HistoryPayload(h.id,b.id) from History h inner join Book b where b.id=?1")
-    List<HistoryPayload> getAllByHistory(Long id);
+    List<HistoryPayload> getAllByHistoryBookId(Long id);
 
+    @Query("select new com.example.booksstory.payload.HistoryPayload(h.id,u.id) from History h inner join users u where u.id=?1")
+    List<HistoryPayload> getAllByHistoryUserId(Long id);
 
 
 }

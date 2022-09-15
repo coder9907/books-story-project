@@ -34,8 +34,8 @@ public class BasketServiceImpl implements BasketService {
             if (payloads != null && payloads.size()>=0){
                 return payloads.stream().peek(basketPayload -> {
                     Basket basket=new Basket();
-                    basket.setBooks(Arrays.asList(bookRepository.findById(basketPayload.getBookId()).orElseThrow(()->new ResourceNotFoundException("book not found"))));
                     basket.setUsers(Arrays.asList(userRepository.findById(basketPayload.getUserId()).orElseThrow(()->new ResourceNotFoundException("user not found"))));
+                    basket.setBooks(Arrays.asList(bookRepository.findById(basketPayload.getBookId()).orElseThrow(()->new ResourceNotFoundException("book not found"))));
                     basketRepository.save(basket);
                 }).collect(Collectors.toList());
             }throw new ResourceBadRequestException("send properly body");
@@ -57,6 +57,39 @@ public class BasketServiceImpl implements BasketService {
         }catch (Exception e){
             log.error("delete no succesfull",e.getMessage());
             return new ResponseEntity(new Result(false,"delete no succesfull",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAll(){
+        try {
+            List<Basket> baskets= basketRepository.findAll();
+            return ResponseEntity.ok(baskets);
+        }catch (Exception e){
+            log.error("error basketService",e.getMessage());
+            return new ResponseEntity(new Result(false,"error basketService",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllBasketUserId(Long userId){
+        try {
+            List<BasketPayload> basketPayload=basketRepository.getAllByBasketUserId(userId);
+            return ResponseEntity.ok(basketPayload);
+        }catch (Exception e){
+            log.error("error basketService",e.getMessage());
+            return new ResponseEntity(new Result(false,"error basketService",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllBasketBookId(Long bookId){
+        try {
+            List<BasketPayload> basketPayload=basketRepository.getAllByBasketBookId(bookId);
+            return ResponseEntity.ok(basketPayload);
+        }catch (Exception e){
+            log.error("error basketService",e.getMessage());
+            return new ResponseEntity(new Result(false,"error basketService",null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

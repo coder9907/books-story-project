@@ -1,6 +1,7 @@
 package com.example.booksstory.entity;
 
 import com.example.booksstory.entity.abstractentity.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

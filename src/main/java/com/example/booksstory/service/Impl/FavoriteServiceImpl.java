@@ -56,4 +56,37 @@ public class FavoriteServiceImpl implements FavoriteService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getByFavoriteUserId(Long userId){
+        try {
+            List<FavoritePayload> favoritePayloads=favoriteRepository.getAllByBasketUserId(userId);
+            return ResponseEntity.ok(favoritePayloads);
+        }catch (Exception e){
+            log.error("error favorite");
+            return new ResponseEntity(new Result(false,"no succesfull",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getByFavoriteBookId(Long bookId){
+        try {
+            List<FavoritePayload> favoritePayloads=favoriteRepository.getAllByBasketBookId(bookId);
+            return ResponseEntity.ok(favoritePayloads);
+        }catch (Exception e){
+            log.error("error favorite");
+            return new ResponseEntity(new Result(false,"no succesfull",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllFavourite(){
+        try {
+            return ResponseEntity.ok(favoriteRepository.findAll());
+        }catch (Exception e){
+            log.error("error favorite");
+            return new ResponseEntity(new Result(false,"no succesfull",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

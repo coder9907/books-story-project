@@ -14,4 +14,7 @@ public class FeatureGroupPayload {
     private String name;
     private LanguageEnum lang;
 
+    public FeatureGroupPayload(Long id) {
+        this.id = id;
+    }
 }

@@ -9,4 +9,10 @@ public interface FavoriteService {
     ResponseEntity<?> saveFavorite(List<FavoritePayload> payloads);
 
     ResponseEntity<?> deleteFavorite(Long id);
+
+    ResponseEntity<?> getByFavoriteUserId(Long userId);
+
+    ResponseEntity<?> getByFavoriteBookId(Long bookId);
+
+    ResponseEntity<?> getAllFavourite();
 }

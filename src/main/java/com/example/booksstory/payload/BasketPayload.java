@@ -13,4 +13,11 @@ public class BasketPayload {
     private Long userId;
     private Long bookId;
 
+    public BasketPayload(Long basketId, Long bookId) {
+        this.basketId = basketId;
+        this.bookId = bookId;
+    }
+
+
+
 }

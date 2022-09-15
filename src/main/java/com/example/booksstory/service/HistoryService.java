@@ -13,4 +13,6 @@ public interface HistoryService {
     ResponseEntity<?> getAllHistory();
 
     ResponseEntity<?> getByHistoryBookId(Long bookId);
+
+    ResponseEntity<?> getByHistoryUserId(Long userId);
 }

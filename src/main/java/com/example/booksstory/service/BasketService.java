@@ -9,4 +9,10 @@ public interface BasketService {
     List<BasketPayload> saveBasket(List<BasketPayload> payloads);
 
     ResponseEntity<?> deleteBasket(List<BasketPayload> payloads);
+
+    ResponseEntity<?> getAll();
+
+    ResponseEntity<?> getAllBasketUserId(Long userId);
+
+    ResponseEntity<?> getAllBasketBookId(Long bookId);
 }

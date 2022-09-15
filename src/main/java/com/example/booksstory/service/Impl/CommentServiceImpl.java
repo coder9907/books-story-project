@@ -58,6 +58,17 @@ public class  CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public ResponseEntity<?> getAllComment(){
+        try {
+            List<Comment> comments=commentRepository.findAll();
+            return ResponseEntity.ok(comments);
+        }catch (Exception e){
+            log.error("error Comment Service",e.getMessage());
+            return new ResponseEntity(new Result(false,"error Comment Service",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public ResponseEntity<?> findByBookId(Long bookId){
         try {
             List<CommentPayload> commentPayloads=commentRepository.getCommentByBooksId(bookId);

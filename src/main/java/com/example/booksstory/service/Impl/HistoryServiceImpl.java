@@ -33,52 +33,64 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserRepository userRepository;
 
     @Override
-    public List<HistoryPayload> saveHistory(List<HistoryPayload> payloads){
+    public List<HistoryPayload> saveHistory(List<HistoryPayload> payloads) {
         try {
-            if (payloads != null && payloads.size()>=0){
+            if (payloads != null && payloads.size() >= 0) {
                 return payloads.stream().peek(historyPayload -> {
-                    History history=new History();
-                    history.setUsers(Arrays.asList(userRepository.findById(historyPayload.getUserID()).orElseThrow(()->new ResourceNotFoundException("user not found"))));
-                    history.setBooks(Arrays.asList(bookRepository.findById(historyPayload.getBookId()).orElseThrow(()->new ResourceNotFoundException("book not found"))));
+                    History history = new History();
+                    history.setUsers(Arrays.asList(userRepository.findById(historyPayload.getUserID()).orElseThrow(() -> new ResourceNotFoundException("user not found"))));
+                    history.setBooks(Arrays.asList(bookRepository.findById(historyPayload.getBookId()).orElseThrow(() -> new ResourceNotFoundException("book not found"))));
                     historyRepository.save(history);
                 }).collect(Collectors.toList());
-            }throw new ResourceBadRequestException("send properly body");
-        }catch (Exception e){
-            log.error("save not found in history",e.getMessage());
+            }
+            throw new ResourceBadRequestException("send properly body");
+        } catch (Exception e) {
+            log.error("save not found in history", e.getMessage());
         }
         return null;
     }
 
     @Override
-    public ResponseEntity<?> getByIdHistory(Long id){
+    public ResponseEntity<?> getByIdHistory(Long id) {
         try {
-            History history=historyRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("history not found"));
+            History history = historyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("history not found"));
             return ResponseEntity.ok(history);
-        }catch (Exception e){
-            log.error("error history",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getByIdHistory",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("error history", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getByIdHistory", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getAllHistory(){
+    public ResponseEntity<?> getAllHistory() {
         try {
-            List<History> histories=historyRepository.findAll();
+            List<History> histories = historyRepository.findAll();
             return ResponseEntity.ok(histories);
-        }catch (Exception e){
-            log.error("error history",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getByIdHistory",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("error history", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getByIdHistory", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getByHistoryBookId(Long bookId){
+    public ResponseEntity<?> getByHistoryBookId(Long bookId) {
         try {
-            List<HistoryPayload> historyPayloads=historyRepository.getAllByHistory(bookId);
+            List<HistoryPayload> historyPayloads = historyRepository.getAllByHistoryBookId(bookId);
             return ResponseEntity.ok(historyPayloads);
-        }catch (Exception e){
-            log.error("error history",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getByBookId",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("error history", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getByBookId", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getByHistoryUserId(Long userId) {
+        try {
+            List<HistoryPayload> historyPayloads = historyRepository.getAllByHistoryUserId(userId);
+            return ResponseEntity.ok(historyPayloads);
+        } catch (Exception e) {
+            log.error("error history", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getByBookId", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

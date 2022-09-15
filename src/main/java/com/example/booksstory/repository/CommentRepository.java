@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("select new com.example.booksstory.payload.CommentPayload(c.id,c.title) from Comment c inner join Book b where b.id=?1")
+    @Query("select new com.example.booksstory.payload.CommentPayload(c.id,c.title) from Comment c inner join c.books cb where cb.id=?1")
     List<CommentPayload> getCommentByBooksId(Long id);
 
-    @Query("select new com.example.booksstory.payload.CommentPayload(c.id,c.title) from Comment c inner join users u where u.id=?1")
+    @Query("select new com.example.booksstory.payload.CommentPayload(c.id,c.title) from Comment c inner join c.users cu where cu.id=?1")
     List<CommentPayload> getCommentByUsersId(Long id);
 }

@@ -17,7 +17,7 @@ public class Feature extends AbstractEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "feature")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "feature")
     private List<FeatureGroupTranslate> featureTranslates;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)

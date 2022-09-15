@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface FeatureGroupTranslateRepository extends JpaRepository<FeatureGroupTranslate, Long> {
 
-    @Query("select new com.example.booksstory.payload.FeatureGroupPayload(f.id, ff.name, ff.lang) from FeatureGroup f  inner join  f.featureTranslates ff where ff.id=?1")
+    @Query("select new com.example.booksstory.payload.FeatureGroupPayload(f.id) from FeatureGroup f  where f.id=?1")
     public List<FeatureGroupPayload> getOneWithAllLang(Long id);
 
 
